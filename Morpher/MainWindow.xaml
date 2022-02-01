@@ -1,0 +1,139 @@
+﻿<Window x:Class="Morpher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:Morpher"
+        mc:Ignorable="d"
+        Title="Image Morpher" Height="1611" Width="1330" FontFamily="Microsoft Sans Serif">
+    <DockPanel Background="AliceBlue">
+        <ToolBar DockPanel.Dock="Top" ToolBarTray.IsLocked="True" Background="MidnightBlue">
+        </ToolBar>
+        <Grid x:Name="mainGrid" DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <hc:SimpleStackPanel Margin="32" Grid.Row="1" Grid.Column="0">
+                <hc:Row Margin="0,0,0,0">
+                    <hc:Col Span="2">
+                        <TextBlock FontSize="15" Width="188" HorizontalAlignment="Left">A value:</TextBlock>
+                    </hc:Col>
+                    <hc:Col Span="2">
+                        <Slider  x:Name="ASlider" Maximum="1" Minimum="0.0001" Value="0.01" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,0,0,0">
+                    <hc:Col Span="4">
+                        <TextBox x:Name="aSetting" Text="{Binding ElementName=ASlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="15" />
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,10,0,0">
+                    <hc:Col Span="2">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" Width="188">Bvalue:</TextBlock>
+                    </hc:Col>
+                    <hc:Col Span="2">
+                        <Slider  x:Name="BSlider" Maximum="2" Minimum="1" Value="2" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,0,0,0">
+                    <hc:Col Span="2">
+                        <TextBox x:Name="bSetting" Text="{Binding ElementName=BSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="15" />
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,10,0,0">
+                    <hc:Col Span="2">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" Width="188">P value:</TextBlock>
+                    </hc:Col>
+                    <hc:Col Span="2">
+                        <Slider  x:Name="PSlider" Maximum="2" Minimum="0" Value="0" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,0,0,0">
+                    <hc:Col Span="2">
+                        <TextBox x:Name="pSetting" Text="{Binding ElementName=PSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="15" />
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,10,0,0">
+                    <hc:Col Span="2">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" Width="188">Frames:</TextBlock>
+                    </hc:Col>
+                    <hc:Col Span="2">
+                        <Slider IsSnapToTickEnabled="True" TickFrequency="1" x:Name="framesSlider"  Maximum="1000" Minimum="1" Value="10" />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,0,0,0">
+                    <hc:Col Span="2">
+                        <TextBox x:Name="numFramesSetting" Text="{Binding ElementName=framesSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="15" />
+                    </hc:Col>
+                </hc:Row>
+
+                <hc:Row Margin="0,10,0,0">
+                    <hc:Col Span="2">
+                        <TextBlock FontSize="15" HorizontalAlignment="Left" Width="188">Threads:</TextBlock>
+                    </hc:Col>
+                    <hc:Col Span="2">
+                        <Slider IsSnapToTickEnabled="True" TickFrequency="1" x:Name="threadsSlider"  Maximum="8" Minimum="1" Value="4"  />
+                    </hc:Col>
+                </hc:Row>
+                <hc:Row Margin="0,0,0,0">
+                    <hc:Col Span="2">
+                        <TextBox x:Name="numThreadsSetting" Text="{Binding ElementName=threadsSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" FontSize="15" />
+                    </hc:Col>
+                </hc:Row>
+            </hc:SimpleStackPanel>
+            <hc:SimpleStackPanel Margin="32" Grid.Row="1" Grid.Column="1">
+                <hc:UniformSpacingPanel Spacing="20" Orientation="Vertical">
+                    <Button x:Name="sourceButton" Padding="0" Margin="0,0,0,10" Content="Select Source Image" FontSize="20" Click="sourceButton_Click"/>
+                    <Button x:Name="destButton" Padding="0" Margin="0,0,0,10" Content="Select Destination Image" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Width="Auto" IsEnabled="False" FontSize="20" Click="destButton_Click"/>
+                    <Button x:Name="morphButton" Padding="0" Margin="0,0,0,10" Content="Morph"  Grid.ColumnSpan="2" FontSize="20" IsEnabled="False" Click="morphButton_Click" />
+                    <Button x:Name="clearButton" Padding="0" Margin="0,0,0,10" Content="Clear"  Grid.ColumnSpan="2" FontSize="20" IsEnabled="False" Click="clearButton_Click" />
+                </hc:UniformSpacingPanel>
+            </hc:SimpleStackPanel>
+            <hc:SimpleStackPanel Margin="32" Grid.Row="1" Grid.Column="2">
+                <hc:UniformSpacingPanel Spacing="20" Orientation="Vertical">
+                    <Button x:Name="playButton" Padding="0" Margin="0,0,0,10" Grid.Column="1" Content="Play" Click="playButton_Click" FontSize="20"/>
+                    <Button x:Name="reverseButton" Padding="0" Margin="0,0,0,10" Grid.Column="1" Content="Reverse" Click="reverseButton_Click" FontSize="20"/>
+                    <hc:Row Margin="0,0,0,0" >
+                        <hc:Col Span="4">
+                            <Button x:Name="startButton" Padding="0" Content="Start" Click="startButton_Click" IsEnabled="False" FontSize="20"/>
+                        </hc:Col>
+                        <hc:Col Span="4">
+                            <Button x:Name="prevFrameButton" Padding="0" Content="Prev. Frame" Click="prevFrameButton_Click" IsEnabled="False" FontSize="20"/>
+                        </hc:Col>
+                        <hc:Col Span="4">
+                            <Button x:Name="midFrameButton" Padding="0" Content="Mid Frame" IsEnabled="False" FontSize="20" Click="midFrameButton_Click"/>
+                        </hc:Col>
+                        <hc:Col Span="4">
+                            <Button x:Name="nextFrameButton" Padding="0" Content="Next Frame" Click="nextFrameButton_Click" IsEnabled="False" FontSize="20"/>
+                        </hc:Col>
+                        <hc:Col Span="4">
+                            <Button x:Name="endButton" Padding="0" Content="End" Click="endButton_Click" IsEnabled="False" FontSize="20"/>
+                        </hc:Col>
+                    </hc:Row>
+                    <Label x:Name="benchmark" Padding="5" Grid.Column="2" Content="Benchmark: " VerticalAlignment="Center" FontSize="20" Style="{DynamicResource LabelInfo}"/>
+
+                </hc:UniformSpacingPanel>
+            </hc:SimpleStackPanel>
+            <Grid Background="Gray">
+                <local:ControlLineCanvas x:Name="source"/>
+            </Grid>
+            <Grid Background="Gray" Grid.Column="1">
+                <local:ControlLineCanvas x:Name="dest" Grid.Column="1"/>
+            </Grid>
+
+            <Grid Background="Gray" Grid.Column="2">
+                <Image x:Name="result" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</Window>
